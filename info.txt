@@ -1,0 +1,1 @@
+testdata中json文件名需为用例名的后缀，比如用例为：test_001_eamequtsave，json文件为eamequtsave.json

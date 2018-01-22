@@ -1,9 +1,11 @@
 #coding=utf-8
 import requests
 import json
-url_eam="http://yfb-eam.hd-cloud.com/eam/EAM_SPARE_PART/getMetaData" #备件地址
-tenantCode="hetestno5"
-url_login = 'http://yfb-passport.hd-cloud.com/login'
+from . import util
+
+url_eam=util.geturl().get('eam')
+tenantCode=util.geturl().get('tenantcode')
+url_login = '{}/login'.format(util.geturl().get('passport'))
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0",
            "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
            "Accept-Language":"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",

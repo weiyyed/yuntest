@@ -2,8 +2,10 @@
 import json
 import unittest
 import requests
-import logincookies
-"""dd"""
+import sys
+from util import logincookies
+from util import util
+
 class TestEamEqut(unittest.TestCase):
     def setUp(self):
         self.cookie=logincookies.geteamcookie()
@@ -14,18 +16,13 @@ class TestEamEqut(unittest.TestCase):
                    "Connection": "keep-alive",
                    "Upgrade-Insecure-Requests": "1",
                    }
-        with open(r"...\testdata\eamequtsave.json",'r',encoding='utf-8') as es:
-            self.eamequtsave=json.load(es)
     def tearDown(self):
         pass
 
     def test_001_eamequtsave(self):
         url = 'http://yfb-eam.hd-cloud.com/eam/EAM_EQUT/cardSave?parentEntityId=&parentFuncCode=&topFuncCode=EAM_EQUT&0.46442153106909034&contentType=json&ajax=true'
-
-        # jsondata = '{"tableName":"eam_equt","equt_scrap_age":"10","equt_run_time":17724,"dataStatus":0,"ver":1,"created_by":null,"created_dt":"2018-01-09 12:57:11","updated_by":null,"updated_dt":"2018-01-09 12:57:11","df":0,"tenantid":10000000550,"ts":null,"equt_class__name":"设备分类01","equt_class":"1","equt_professional":"01","equt_abc_type":"A","equt_state":"ON","equt_good_state":"01","equt_ext_type":null,"equt_asset_state":null,"equt_qr_code":null,"status":null,"equt_size":null,"equt_name":"自动设备名称001","equt_locationnum":"weihao001","equt_model":"xinghao001","equt_owner_dept__name":"海顿测试","equt_owner_dept":"hdtest","orgid":10000005008}'
-        # bodydata=json.loads(jsondata)
-        # print(bodydata)
-        r = requests.post(url,headers=self.headers,json=self.eamequtsave,cookies=self.cookie)
+        # print(sys._getframe().f_code.co_name)
+        r = requests.post(url, headers=self.headers, json=util.readjson("eamequtsave"), cookies=self.cookie)
         print(r.text)
 
     '''设备台账保存数据'''
