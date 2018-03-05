@@ -7,6 +7,20 @@
         name: 培训用例集
         variables: []
 -   test:
+        name: getpubkey
+        request:
+            headers:
+                Accept: application/json, text/javascript, */*; q=0.01
+            method: get
+            url: http://yfb-passport.hd-cloud.com/preLogin/getPubKey
+        validate:
+        -   contains:
+            - content
+            - data
+        -   eq:
+            - content.status
+            - 3200
+-   test:
         name: 获取题目数据
         request:
             headers:

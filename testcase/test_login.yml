@@ -1,0 +1,48 @@
+-   config:
+        request:
+            headers: 
+                Accept: application/json, text/javascript, */*; q=0.01
+                # Cookie: ${get_cookies(trn)}
+            base_url: http://yfb-trn.hd-cloud.com
+        name: 培训用例集
+        variables: []
+-   test:
+        name: getpubkey
+        request:
+            headers:
+                Accept: application/json, text/javascript, */*; q=0.01
+            method: get
+            url: http://yfb-passport.hd-cloud.com/preLogin/getPubKey
+        extract:
+          - encryptType: content.data.encryptType
+          - publicExponent: content.data.publicExponent
+          - modulus: content.data.modulus
+        validate:
+        -   eq:
+            - status_code
+            - 200
+-   test:
+        name: login
+        request:
+            headers:
+                Accept: application/json, text/javascript, */*; q=0.01
+            method: post
+            url: http://yfb-passport.hd-cloud.com/login?service=http%3A%2F%2Fyfb-portal.hd-cloud.com%2Fcas&tenantCode=hetestno5&trial=false
+            json:
+                rememberMe: true
+                lt: 
+                execution:
+                _eventId:
+                module:
+                password: ${encrypt($publicExponent,$modulus,111111)}
+                username: w
+                captcha:
+
+        extract:
+          - encryptType: content.data.encryptType
+          - publicExponent: content.data.encryptType
+          - modulus: content.data.encryptType
+        validate:
+        -   eq:
+            - status_code
+            - 200
