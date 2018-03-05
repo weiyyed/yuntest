@@ -1,0 +1,54 @@
+-   config:
+        request:
+            headers: 
+                Accept: application/json, text/javascript, */*; q=0.01
+                Cookie: ${get_cookies(trn)}
+            base_url: http://yfb-trn.hd-cloud.com
+        name: 培训用例集
+        variables: []
+-   test:
+        name: 获取题目数据
+        request:
+            headers:
+                Accept: application/json, text/javascript, */*; q=0.01
+            method: get
+            url: /trn/TRN_SUBJECT/getMetaData
+        validate:
+        -   contains:
+            - content
+            - data
+        -   eq:
+            - content.status
+            - 3200
+-   test:
+        name: 新增题目
+        request:
+            json: {
+  # "tableName": "trn_subject",
+  # "isactive": "1",
+  # "dataStatus": 0,
+  # "ver": 1,
+  # "created_by": null,
+  # "created_dt": "2018-02-28 11:45:19",
+  # "updated_by": null,
+  # "updated_dt": "2018-02-28 11:45:19",
+  # "df": 0,
+  # "tenantid": 10000000550,
+  # "ts": null,
+  "su_type": "level_subject1",
+  "su_name": "接口增加题目"
+}
+            headers:
+                Content-Type: text/plain
+            method: POST
+            url: /trn/TRN_SUBJECT/cardSave
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - content.messages.0.message
+            - 保存成功
+        -   eq:
+            - content.status
+            - 3200

@@ -1,0 +1,33 @@
+-   config:
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+        name: testset description
+        variables: []
+-   test:
+        name: /eam/EAM_SPARE_PART/cardSave
+        request:
+            json: {"tableName":"eam_spare_part","columnValues":null,"dataStatus":0,"ver":1,"created_by":null,"created_dt":"2018-02-25
+                14:14:19","updated_by":null,"updated_dt":"2018-02-25 14:14:19","df":0,"tenantid":10000000550,"ts":null,"spare_class__name":"01","spare_class":"01","mesure_unit":"kg","spare_code":"cs01","spare_name":"测试备件","price":"10"}
+            headers:
+                Content-Type: text/plain
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            params:
+                '0.15225922179534157': ''
+                ajax: 'true'
+                contentType: json
+                parentEntityId: ''
+                parentFuncCode: ''
+                topFuncCode: EAM_SPARE_PART
+            url: http://yfb-eam.hd-cloud.com/eam/EAM_SPARE_PART/cardSave
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=UTF-8
+        -   eq:
+            - content.status
+            - 3200

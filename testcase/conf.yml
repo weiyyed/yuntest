@@ -1,0 +1,33 @@
+#yfb预发布环境:
+cookies:
+    User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+    Cookie: MEIQIA_EXTRA_TRACK_ID=39ec3e701f2311e7a3a702356707f53e; CASPRIVACY=""; TENANTCODE=hetestno5; TGC=eyJhbGciOiJIUzUxMiJ9.WlhsS2FHSkhZMmxQYVVwcllWaEphVXhEU214aWJVMXBUMmxLUWsxVVNUUlJNRXBFVEZWb1ZFMXFWVEpKYmpBdUxtVTJkRWRrYldJNWJUbHROMDFIVTFWdlUybE1TR2N1YWpWNVMyMW1iR280WlhKa1RHOXBXWEl0V0VSWGRYTjRWRlJvUm1waWRVOU9lRUpzVGtoMVlYQnVaMHRtVFZORWJtTkhSVjlsTTJOSmJtUjFXV1prVUZGcVNrRkZOV1pVV1dvMldGVjZaMmhNTm5ob1RTMXJTamt4YkRaclMzWTBXamg0WkZOck1XUTFla1ZJWTBOUGNtNTNkVGwxYWtneVJGbG9Wak40U1RObFpVdHBhbEI2U1hoT1oyRjJUMGt3YzFOVVQyaHZjM3BLWkZoWGNVZzFiR1ZJZDA0d2JtRkJSMFZFVG5aNE1IUTBXV1JqYlRCVmRuQmZiMGRCWm1sUFZGTkJXRFF5V1hWUFlrVkZZa04yWkRSUWJIVndVbFpCT0hGaGExTXRTR1pxY21vNFVEQktOM0UwYkVRMGNsWm1YM2RmT1RSblpXMWliMEUzTmtSdE0xZ3pUSFZwUlRoSFRWUjFPVWw1YURSblVreHJkVkV1Wkc1bU1uUkRabWx6WVdkR1R6aGxjMmQ0WTFOTWR3PT0.6v-cNG8y5lcV0pVONBvXK2UvuSAHtTAymc3lTZXGYXe2aAPW7Rs6MLE9Ch1MDDhdg7IRxJnHnSmyIllUZ0EOuQ; JSESSIONID=325DDCA9E18B30615E7E9C476565FB16
+url:
+    portal: http://yfb-product.hd-cloud.com
+    sy: http://yfb-sy.hd-cloud.com
+    manager: http://yfb-manager.hd-cloud.com
+    passport: http://yfb-passport.hd-cloud.com
+    eam: http://yfb-eam.hd-cloud.com
+    hse: http://yfb-hse.hd-cloud.com
+    csc: http://yfb-csc.hd-cloud.com
+    phd: http://yfb-phd.hd-cloud.com
+    trn: http://yfb-trn.hd-cloud.com
+    pom: http://yfb-pom.hd-cloud.com
+    pubbase: http://yfb-pub-base.hd-cloud.com
+    rqreport: http://yfb-rqrpt.hd-cloud.com
+#product产品环境:
+# cookies:
+
+# productName:
+#     portal: http://product.hd-cloud.com
+#     SY: http://sy.hd-cloud.com
+#     manager: http://manager.hd-cloud.com
+#     passport: http://passport.hd-cloud.com
+#     eam: http://eam.hd-cloud.com
+#     hse: http://hse.hd-cloud.com
+#     csc: http://csc.hd-cloud.com
+#     phd: http://phd.hd-cloud.com
+#     trn: http://trn.hd-cloud.com
+#     pom: http://pom.hd-cloud.com
+#     pubbase: http://pub-base.hd-cloud.com
+#     rqreport: http://rqrpt.hd-cloud.com
