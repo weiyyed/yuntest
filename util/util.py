@@ -13,11 +13,11 @@ def readjson(filename):
 def geturl():
     """
     得到配置文件中url的字典
-    :return:字典
+    return:url字典
     """
     path=os.path.join(projroot.PROJECT_ROOT,r'conf\testconf.conf')
     cf=configparser.ConfigParser()
-    cf.read(path)
+    cf.read(path,encoding="utf-8")
     # print(cf.sections())
     item=dict(cf.items("url"))
     return item
