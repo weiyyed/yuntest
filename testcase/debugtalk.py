@@ -1,12 +1,13 @@
 import requests,os
-import yaml
+import yaml,re
 import hashlib
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 #验证session
 class Getsession(object):
 	
-	"""docstring for ClassName"""
+	"""使用记住密码时获取session"""
 	def __init__(self, productUrl,passsportUrl,cookies_dic):
 		self.productUrl=productUrl
 		self.passsportUrl=passsportUrl
@@ -32,7 +33,7 @@ class Getsession(object):
 		"""
 		r=requests.get(self.productUrl,allow_redirects=False)
 		sessionid=r.headers['Set-Cookie'].split(';')[0].split('=')[1]
-		print(sessionid)
+		# print(sessionid)
 		return sessionid
 	# 授权后获取jsession
 	def get_sessionid(self):
@@ -41,41 +42,54 @@ class Getsession(object):
 
 		return sessionid	
 class GetEncryptPassword(object):
-	"""docstring for ClassName"""
+	"""使用密码登录时，获取加密的密码"""
 	def __init__(self, publicExponent,modulus,password):
 		self.publicExponent = publicExponent
 		self.modulus=modulus
 		self.password=password
+		self.url_html=os.path.join(os.getcwd(),'encrypt_password.html')
+
 	# 使用公钥和sha256密码更新html文件
-	def update_html(m_e_p_list):
+	def update_html(self):
 		# html_url=r'E:/py_workspaces/synchronous/yuntest/testcase/encrypt_password.html'
 		# html_url=os.path.join(os.getcwd(), "encrypt_password.html")
-		html="encrypt_password.html"
-		with open(html,encoding='utf-8') as t:
+		with open(self.url_html,encoding='utf-8') as t:
 			content=t.read()
 		m=r'modulus\s?=\s?"(.*)";'
+		m_old=re.search(m,content).group(1)
+		content=content.replace(m_old,self.modulus)
 		e=r'exponent\s?=\s?"(.*)";'
+		e_old=re.search(e,content).group(1)
+		content=content.replace(e_old,self.publicExponent)
 		p=r'pubstr\s?=\s?"(.*)";'
-		# print(content)
-		# t=re.search(m,content).group(1)
-		# print(t)
-		old_list=[re.search(re_expre,content).group(1) for re_expre in [m,e,p] ]
+		p_old=re.search(p,content).group(1)
+		content=content.replace(p_old,self.encryptsh256())
+
+		# old_list=[re.search(re_expre,content).group(1) for re_expre in [m,e,p] ]
 		# print(old_list,m_e_p_list)
 		# replace=content.replace(m_old,m_new)
-		r_content=content.replace(old_list[0],self.modulus).replace(old_list[1],self.exponent).replace(old_list[2],self.encryptsh256())
-		with open(html_url,'w+',encoding='utf-8') as man_file:
-			man_file.write(r_content)
-	def encryptsh256():
+		# r_content=content.replace(old_list[0],self.modulus).replace(old_list[1],self.publicExponent).replace(old_list[2],self.encryptsh256())
+		with open(self.url_html,'w+',encoding='utf-8') as man_file:
+			man_file.write(content)
+		# print(r_content)
+	def encryptsh256(self):
 		'''使用sha256加密明文密码'''
-		enpass=hashlib.sha256(self.password).hexdigest()
+		enpass=hashlib.sha256(str(self.password).encode()).hexdigest()
 		# 反转大小密文
 		l=list(enpass)
 		l.reverse()
 		return ''.join(l).upper()
-	def get_entry_password():
-		driver=webdriver.PhantomJs()
-		driver.get("encrypt_password.html")
+	def get_entry_password(self):
+		# driver=webdriver.PhantomJS()
+		self.update_html()
+		chrome_options=Options()
+		chrome_options.add_argument('--headless')
+		chrome_options.add_argument('--disable-gpu')
+		driver=webdriver.Chrome(chrome_options=chrome_options)
+	
+		driver.get(self.url_html)
 		epass=driver.find_element_by_id('enpassword').text
+		print("加密后字符串：",epass)
 		driver.quit()
 		return epass
 				
@@ -96,7 +110,8 @@ def get_sessionid(productName):
 
 def encrypt(publicExponent,modulus,password):
 	get=GetEncryptPassword(publicExponent,modulus,password)
-	return get.get_entry_password()
+	e=get.get_entry_password()
+	return e
 
 
 
