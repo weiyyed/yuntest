@@ -5,7 +5,25 @@
                 # Cookie: ${get_cookies(trn)}
             base_url: http://yfb-trn.hd-cloud.com
         name: 培训用例集
-        variables: []
+        variables: 
+          - base_url: http://yfb-trn.hd-cloud.com
+# -   test:
+#         name: get_trn_session
+#         request:
+#             headers:
+#                 Accept: application/json, text/javascript, */*; q=0.01
+#             method: get
+#             url: /
+#         extract:
+#           - trnsessionid: headers.Set-Cookie.(JSESSIONID=)
+#           - passport_redirect: headers.Location
+#         validate:
+#         -   contains:
+#             - $trnsessionid
+#             - JSESSIONID        
+#         -   contains:
+#             - $passport_redirect
+#             - passport
 -   test:
         name: getpubkey
         request:
@@ -27,22 +45,33 @@
             headers:
                 Accept: application/json, text/javascript, */*; q=0.01
             method: post
-            url: http://yfb-passport.hd-cloud.com/login?service=http%3A%2F%2Fyfb-portal.hd-cloud.com%2Fcas&tenantCode=hetestno5&trial=false
+            url: http://yfb-passport.hd-cloud.com/login
+            params:
+                service: $base_url/cas
+                tenantCode: hetestno5
+                trial: false
             json:
                 rememberMe: true
-                lt: 
-                execution:
-                _eventId:
-                module:
+                lt: LT-99-cYUlmicWiFuLd7qi5CkoHkECb9ewAN-passport.hd-cloud.com
+                execution: d44ab780-fabe-4a68-a1fa-7be524302e52_ZXlKaGJHY2lPaUpJVXpVeE1pSjkuTm1oR01XWTFZakJMZDB4SWQxWTNja2xWTkhSaVMwVTBlV3Q0ZDFGdmFYTTRTVzFyUkhGMU5WVTVTbVJpYkhscmJYbzJjRWRpZGxVNVYwZ3ljMVJXYkhWU2N6VlVUaXQzWm1oU1pUVk9SQ3M1U0Zad1VYSnFZVGt2UTJoQ1NGWXhSRFZhZWpGRFpXdFRhVmRJZFd0SlJtMVlTbGRoUTJjNVVVVTRTWFphYmtkVmVrUldNMHQxSzNSNWNucHJiVXhMYUcxS2JrMVBLMlU0UzBwSVdFcHpaVUkyYUdzeWJXdEplR0Z2VlVzM2VqZG9SRVJYZUZodVIyOVZNbTV6ZUZsa09IbEhRV1F6TlVwVmVGTlZkRzlXVjNOeGRGVmpUR1p3ZVZWQlRXNUViMnRPZG0xelpqVjRTVlJsVWpWc1FXeGxZVVlyZG01SFEzWnhRV3hEUlVJclptSkdNRmQ0Y0ZWWFVFWk5UbXR6ZW5aWEswZHVSMnRKYUZacE5YWXpkVmxPUTJ3NU1GVnpkVGxHSzA5SFltMDNZbTg0UjBWR09YQk5XV055VTBWdFRIWnhWWE4wT1hZemNESlFTMVpyTlRkWE0xbFFMM3BYYVRkamRXWXZVVlJuUjJ0aldHMU5UM1p2WW1SM1pFSktTRWh0VjI0d1JTdDFiMGMwTm5Cd1RuZHpSV051YTNCcFEzRlVSbk1yTlVsNmRUbGFhbTVCVTFac2RsaFdUM1VyTlZJMU16aGhXbFZ4YTFaV1NGbzFSbGRWUkhGak5WRm5WMHN4YW1FclEzcExPVmRLWnpWdlNHUkVkMDlQZVc4MGRERnliVXB6ZW1GTGJuSXZkRXRPZURWT1VXVnpkV2cxTWpWNVpuRjFWekZwVlVKMFVsUlNUbUZuVDFKa2JHbG1RVmhEVG5jd09IRlpkbHBGZVZWQk5WRlNLMkkwUlhKNGFqbFpTa3hrZGxaemQwTjJTbTFsUjFOcloyZG9Ta3BFVDJ0elFqSnVSbVZNT0hKdWRWWlZUMUJRUm1KTGJGY3lia3N3ZUhZeldsRXhRbk5MVTBGVFJEZFVjVzFNYUROMlMwOXphR1kwVUVJeFlXMUZibmxQV1RCbWVITk5XVFZOZUc1MVRUZzVRbkJuZDFOSldYWmxaWEJZWkNzck5GUTBhRVpNVEZGamFIbElXVVptYkVjeFNqTkVSazF0Umxkd1EzQlBaR0ZaWTJ4VFVGcFllbTVQUzNkd2IyRkdhRk5TUm1Rck9UQXJTRE5VY1RWU2RWQXZNVGsyTm5rM1QxWm5WV1J3YmtKNGRWQm9jWE41VVVWWUswMWxTSE5PUjJabGFYRm1Vall3Wm5sNE16WjRZa1YxZEV0eFNHSkxkV0pRVkdoMU9FZFVPVWRNTldsSFJtdEtiVk12TUc0M1NUazRhMDVHWkc5V1dWaHZNSGhTTm5WR2RTOUtiVGhNVjJOT2FrSkVWMFV4YkRFM09EaEtiRzB6WkhOMWEwNHJVVmxNZVRsM09WaExRMUUwY1ZaSFdrTk5VM3BrUW5GYWNHSjFaa3huVXpOMlNHNXZTR2RQTTNkemRHNURkR3RhT0hONVlYQXlVVlZKVGtsTlVtRXZNRk0zTm1jeUwzVmpVMDF4TlVneVJVVXZZa055ZEdodk5saFlhbUpVV2xKYWNWbE5TWFpoZEVORWFGTnRWbUkwU2pFMFR6UkxNemtyVm1RNVNqZ3dLMjQzYkVGa1RsRjVOWEF4WjB0NFYzTTVhMUp1YVc5NmQwUkZRWFpMYWxoeVVGUnVaSEY0TVVkWk0zbE1TeXRGZDB0Tk0yWkNibU5UVEZsd2NtMWFOV3hZSzNOb1UzSmtkMmRwVEZkR1ZrbEdVbWRJWWxCUVoxQXpTalpRV1VVMlRTc3ZjRUZCYW05bE0wVkpSVmcwTkVKWWVtNUhkRzEzWXpWeGRrUTBTemhxV1RaTWJEWnhPRlptUmtOS04wUmllak4yZEdwYVMwSnFaalUzT0RVeFlrSnFWR1ZwV0dNM2RqSldabWcxTjBkTVZTOUhRV3gyZVRGR1pscGFSMkV5YldGaWEyODNSbU5tYWtoSVVVODFWSFowTVhWSE9FUm1lakpXYkdaR2MyTnZLM0ZCZVVrMmVVVXdkelpNYjNKRE1qaHdPSFZJVWtONk5HTmxaU3RwY2tNMlFYSnZiRlIxYWxwbVpEVmFTVEZCWVhONVkwODFOamxuVHpkbE4zYzVhMHhSVTJreFVtUnBORUoyTWxkWGRqQTJlV3BTZGxJNVQxVldPREpOU2t0NlZVWjZNM3BHYVRsc09YcEtZV0l6Y1RCWWJHMTNZMUJSTVRKcVpqa3pTRkptTm1GT2NVTTVTR1EwV21wUmExTnVVMmRqVG5CQkx6VlJPSGMxV1dkNmRYRnpXSFV5YjFkNlpGWnpLMlJOT1VKaWIwVmlNalpZU25FeFRHMXhUR2RIUXpGalpFUTBjWHBhVkVwRVJGcHBhWGhJTjFKb1YzUm1OemhuVURCS1lqbGlaelI0UVVGaE5tbHdMek0wYXpReFZHcGtiMWRxVGpWWWIxY3pLM2xsYURGbE4wVmhUMVJHVUZVeGRURTJOalY2TmpoNU1ISklXRmhWZDIxUlRVNDRNM2xDYzNoVE5FbDZOVlpVZFc1Nk1GcHNRbHB3VldWck1rRnhNMlkzVVRaNGEzQkZSbEY2Wnpad1VWZFNaVzVsWjAxNmVXZHNkMGMzV1RBM2NuQjVTVFpKWVdoTmJFcEJVbFZKZVVoT1lUaENZVWN4VURKbGJYYzVRWGhhUjJGdldrUkZjVko1V1dkTmVGWTRPRk0xTkM5TlR6ZG1lV2Q0VEVKTVFVTXJhMmx5WlZCSGRHeDVXbkpyYjA1MWFVRnpTM292V2t4UlVsaE1lbTlHYTJaQ1JHOWhjVEZYV21oQmRtNVJRVTUzUkRKU0szSkxNVWhpV1VaV09GbE1lRXByYUhnelkxaFBOV3RPYVdka0wxSXdZMEVyTWpnNFJXMVhaR2RoTTJGRmVuUnVaMjFQVVRKdVRXNU1WREZPUlZSMk9GbHBXbTVYWTFKM1dsWkRhbVoyU2pSdlpYcHBZMDFxVkdRMGVHUXZOMngwTlVKNkwzVmFOWEp3ZWtFMlVtRjJaRlZxTUdSdWJFOHJSall3UkZwS2JVNWtXbEZ6YlhGak9FWklWV3AyY2tWS00ySmxSVVZSZUV0SGIybHdhVUprVjJ0WUswOVRPREpxWkhoT1F6VXZhbFpPVEdaaFpXdzRhR1YwWkdsamQzcFFkSEZUTlhoUlZYbHhPVmQ2UWpOclp5dHdVV3BWWkc5cGIweElkbVl2YldWRGJqZGlhWEF6ZGpGNE9HYzRWak5YUXpCTUszWnRWazVKUTFGbk9IWlFPV3RFTTJSU05VRlRjbmxPYzJsbGVqSTNNMlF6YTFkNVZEUm9ORlprY214dk5uSlFkVnBITkhWbVJVaEtTblptVFZBMGVHVTRabTlvY0ZNd056ZE5VVEJLUkVKUFdtRm9aWFo1Y1dWbVQyeDFkMHBKY1ZJMFEyVXZSV3hxY1RkVU4wVmhOa3c1ZDNabk1HOXhkMU5PY0hFNWFtbE1OVXBNY1Vsa1lUbFpNbHB2WkhaeFVFTm1jREUyTVVWdWNXczNNR0pNYWs5UFVHNUNiVkZ5UWtadmJWQkJObTQyUlZod1dqWkdNMmRxUVVaWVNtVnRSVlphUlVJd1lWQjJVVWh2VTJ4SVJEZDNkMVJ3UkVwdlJGUmpibU5yWlRsTU5uTkpURTVQWm01NU9HTlFXVzlRWkhWR05TODBjeXRwY0dRNFowNTRhRkJuV25kM1lXVnlVMjAzYzNaV04wMXVjRXhZYlhGaGVVVlZSRGxRTmpsME1tMWFNbEYyVDNacE9VSmhRV2hzYVVkeVNIY3ZkaTl3TldkWVVVODVZVXBJVUVkV00zZERVVXQ0TmxKc1pGRnNiSE5DYUhocU5HMW5aekF2YkRsVWFFaDRSU3RXUjJzeWMyZG1aMFk0YmpoNmNXNVVVRTFhYUdKa2NUTTNlVWM0VWpaNE9UZEdhbEJ2VkVoSVVDdGlRMmh5VjFOMFkwZGxObmhyWlVsUlFrUk1SVkExTml0b2FGQkdUVlkxVFVKNGNVNHpTbmh1TVVFellUQkhRM1ZhUW1wMGFIRkhTMEpXVWxkaFdXUklkSGhEZDBaSlYzZHJNamhyU1RSVGVrVldkRlowVVV0eVJ6Qk9Wa1ZIWTFBcmFXRkhjbmhpTURWQ1drcGFaSGhuVUdVMlpWSkVUakJMTVV0S1VXdzNZV280UkhKQ00zQmpUM05pTjJSR1RuSTNZVVZJTjBZd1RVbzJaWEJYYm5ka1pGTjRXV1IzV1M5WlpHSkRLemxYWkN0TU9FaFVkR040ZEZJclZWVklVV3N5V2todk5VOUVXamhySzJ0ME5UZGhRbWRXYUhWUE9WSnpaWEJ0V0ZwbWFFdElXRzAxYjFGd2NsUnZlalJVVjNSdlFTOTFNSGh6ZWtaRVNTOTBWMDlPVVVSNlJIQXdjVEVyY2lzdmNXSnBibWR4UkhWa2JuVlRWRko1VEhaeGIyMVRlR0pGYVdwTldFRTRUVXRoU3lzNGVTOUdja2hLTm5KWWJVRkNVM1ZrTTA5Rk56SmllVFZ4S3psR1FtazNTemhrYm5kT1pXZEVTVUp3V20xSlZHbGxhbE5VV1RkclExWTVNbWxrYlZWRGEyNVRVWGt2WW05UFdXdzFPRWRqYkU0ekwxRllUeTlzZGtGMU5XRklkbGMzYURkVmFWcDRabmhDZVRjMFFsaFRZa0YyV1ZkWFZXRXhSVWhSWkZSMWVuTTJWWEZJT0VSQ1lVUklOamhhWVRkYWVUUlJiSGxVZFVKWmVrOXFSMjFLVW5CdmJsbHhhbTh6UmtwRFRUazNOMWRtVEhnd2NYRnpVVEZ1TUU5a1NscE1NbTR5WTJNMWVESnlXWEpZVTJvMU5rdG1WVEZ5YzFwdGEwVktORUYzUmtKS1JIbzFaRFJrTkd0M1JITkdjRTVZYjI5d1ltRkpkRk01Y0VkcVFYSllXblJWY25aSVZ5OVhhVVkwWlVWVWJrcHZVVEJsVUZoUU5IZHNNMmhwV2tkSU1WQXdablExZEhKbWNVSXhMekowV0dGalUwNXdaaTluYUhNeVZXVmhRVDAuQk5wUEYwOXY2VU4wNVNWNy12UHp4WTRwenNRVjJueEFMa0tSTGRZQ2ZLcE9aRU55SnRMTXdGR3FvN1dJT1NlN2ROdFZYaFFBM0diUE9XYmVIMGswanc=
+                _eventId: submit
+                module: trn
                 password: ${encrypt($publicExponent,$modulus,111111)}
                 username: w
                 captcha:
 
-        extract:
-          - encryptType: content.data.encryptType
-          - publicExponent: content.data.encryptType
-          - modulus: content.data.encryptType
+        # extract:
+        #   - encryptType: content.data.encryptType
+        #   - publicExponent: content.data.encryptType
+        #   - modulus: content.data.encryptType
         validate:
         -   eq:
             - status_code
-            - 200
+            - 302
+            contains:
+            - headers
+            - Set-Cookie
+            contains:
+            - headers
+            - Location
+            
